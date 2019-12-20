@@ -25,7 +25,7 @@ class Recipe(models.Model):
     tags = models.CharField(max_length = 500, blank = True)
 
     times_made = models.IntegerField(default = 0)
-    last_time_made = models.DateField(blank = True)
+    last_time_made = models.DateField(null = True, blank = True)
 
     def __str__(self):
         return self.food_name
