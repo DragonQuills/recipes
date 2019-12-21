@@ -29,3 +29,32 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.food_name
+    def convert_cook_time(self):
+        if self.cook_time == 0:
+            return "No cooking required"
+        elif self.cook_time == 1:
+            return "1 to 15 minutes"
+        elif self.cook_time == 2:
+            return "15 to 30 minutes"
+        elif self.cook_time == 3:
+            return "30 to 45 minutes"
+        elif self.cook_time == 4:
+            return "45 to 75 minutes"
+        elif self.cook_time == 5:
+            return "1 to 2 hours"
+        else:
+            return "Slow-cooker recipe, anywhere from 2 to 12 hours"
+
+    def convert_prep_time(self):
+        if self.prep_time == 1:
+            return "1 to 5 minutes"
+        elif self.prep_time == 2:
+            return "5 to 15 minutes"
+        elif self.prep_time == 3:
+            return "15 to 30 minutes"
+        elif self.prep_time == 4:
+            return "30 to 45 minutes"
+        elif self.prep_time == 5:
+            return "45 to 75 minutes"
+        else:
+            return "Requires advanced preparation, like marinating for several hours or soaking overnight."
