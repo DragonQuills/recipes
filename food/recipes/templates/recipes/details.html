@@ -1,1 +1,21 @@
 <h1> {{recipe.food_name}} </h1>
+<h2>{{recipe.type}}</h2>
+<!-- Add Genre here once you get it-->
+<h3>Cook Time: {{recipe.cook_time}}</h3>
+<h3>Prep Time: {{recipe.prep_time}}</h3>
+{%if recipe.link%}
+  <a href="{{recipe.link}}">Find the recipe here!</a>
+{%endif%}
+<img src="{{recipe.image_link}}" alt="A picture of {{recipe.food_name}}">
+
+<p>
+  {%if recipe.times_made == 0%}
+    This recipe hasn't been made yet! Why not give it a try?
+  {%else%}
+    This recipe has been made {{recipe.times_made}} time{{ recipe.times_made|pluralize }}. <br>
+    It was last made {{recipe.last_time_made}}
+  {%endif%}
+</p>
+
+<!-- Add functionality for incrementing the times_made and the most recent date-->
+<button type="button" name="made_it">I made this!</button>
