@@ -65,3 +65,12 @@ class Recipe(models.Model):
             return "45 to 75 minutes"
         else:
             return "Requires advanced preparation, like marinating for several hours or soaking overnight."
+
+    def convert_genres(self):
+        all_genres = ""
+        genres = self.genres.all()
+        for counter, genre in enumerate(genres):
+            all_genres += genre.name
+            if not counter == len(genres)-1:
+                all_genres += ", "
+        return all_genres
