@@ -6,5 +6,5 @@ app_name = 'recipes'
 urlpatterns = [
     #home page at recipes/
     path('', views.index, name='index'),
-
+    path('load_recipes', views.load_recipes, name='load_recipes')
 ]
