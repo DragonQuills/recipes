@@ -1,7 +1,10 @@
 <h1> {{recipe.food_name}} </h1>
 <h2>{{recipe.type}}</h2>
 <!-- Add Genre here once you get it-->
+<h2> {{recipe.convert_genres}} </h2>
+
 <h3>Cook Time: {{recipe.cook_time}} ({{ recipe.convert_cook_time }})</h3>
+
 <h3>Prep Time: {{recipe.prep_time}} ({{ recipe.convert_prep_time }})</h3>
 {%if recipe.link%}
   <a href="{{recipe.link}}">Find the recipe here!</a>
