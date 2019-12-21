@@ -1,6 +1,13 @@
 from django.db import models
 
 # Create your models here.
+
+class Genre(models.Model):
+    name = models.CharField(max_length = 200)
+
+    def __str__(self):
+        return self.name
+
 class Recipe(models.Model):
     food_name = models.CharField(max_length=200)
     link = models.URLField(max_length=2083, blank = True)
@@ -8,7 +15,7 @@ class Recipe(models.Model):
 
     # genres will be a list, it will need
     # to be decoded using json
-    genres = models.CharField(max_length = 500)
+    genres = models.ManyToManyField(Genre)
     type = models.CharField(max_length = 200)
 
     cook_time = models.IntegerField()
