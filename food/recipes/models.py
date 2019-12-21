@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 # Create your models here.
 
@@ -74,3 +75,28 @@ class Recipe(models.Model):
             if not counter == len(genres)-1:
                 all_genres += ", "
         return all_genres
+
+    def get_tags(self, as_string):
+        all_tags = []
+        if self.vegetarian:
+            all_tags.append("Vegetarian")
+        elif self.could_be_vegetarian:
+            all_tags.append("Vegetarian Option")
+
+        if self.spicy:
+            all_tags.append("Spicy")
+        elif self.could_be_spicy:
+            all_tags.append("Spicy Option")
+
+        tags = json.loads(self.tags)
+
+        all_tags += tags
+        if as_string == False:
+            return all_tags
+        else:
+            tags_string = ""
+            for counter, tag in enumerate(all_tags):
+                tags_string += tag
+                if not counter == len(all_tags)-1:
+                    tags_string += ", "
+            return tags_string
