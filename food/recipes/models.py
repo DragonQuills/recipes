@@ -33,7 +33,7 @@ class RecipeManager(models.Manager):
                                  freezes_well = data.get("freezes_well",False) == "TRUE",
                                  vegetarian = data.get("vegetarian",False) == "TRUE",
                                  could_be_vegetarian = data.get("could_be_vegetarian?",False) == "TRUE",
-                                 spicy = data.get("spicy",False) == "TRUE",
+                                 spicy = data.get("spicy?",False) == "TRUE",
                                  could_be_spicy = data.get("could_be_spicy?",False) == "TRUE",
                                  tags = json.dumps(data.get("tags","").split(", ")),
                                  times_made = int(data.get("times_made",0)),
