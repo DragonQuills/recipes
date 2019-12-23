@@ -13,6 +13,26 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class RecipeManager(models.Manager):
+    def create_recipe(self, data):
+        new_recipe = self.create(food_name = data.get("food_name"),
+                                 link = data.get("link"),
+                                 image_link = data.get("image_link"),
+                                 type = data.get("type"),
+                                 cook_time = data.get("cook_time"),
+                                 prep_time = data.get("prep_time"),
+                                 freezes_well = data.get("freezes_well") == "TRUE",
+                                 vegetarian = data.get("vegetarian") == "TRUE",
+                                 could_be_vegetarian = data.get("could_be_vegetarian") == "TRUE",
+                                 spicy = data.get("spicy") == "TRUE",
+                                 could_be_spicy = data.get("could_be_spicy") == "TRUE",
+                                 tags = json.dumps(data.get("tags").split(", ")),
+                                 times_made = data.get("times_made"))
+        genres = data.get("genres").split(", ")
+        for genre in genres:
+            new_recipe.genres.create(name = "genre")
+        return new_recipe
+
 class Recipe(models.Model):
     food_name = models.CharField(max_length=200)
     link = models.URLField(max_length=2083, blank = True)
