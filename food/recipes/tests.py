@@ -7,7 +7,7 @@ from django.test import TestCase
 from .models import Recipe, Genre
 # Create your tests here.
 def make_recipes():
-    udon = {"food_name":"Pork Udon",
+    udon = {"name":"Pork Udon",
             "link":"https://www.bonappetit.com/recipe/stir-fried-udon-with-pork",
             "image_link":"https://assets.bonappetit.com/photos/58c2c2bcb1bf59134d606c65/16:9/w_2560,c_limit/0317-ba-basics-stir-fried-udon-15.jpg",
             "genres": "Asian, Chinese",
@@ -15,10 +15,10 @@ def make_recipes():
             "cook_time":2,
             "prep_time":3,
             "freezes_well":"FALSE",
-            "vegetarian":"FALSE",
-            "could_be_vegetarian":"TRUE",
-            "spicy":"TRUE",
-            "could_be_spicy":"TRUE",
+            "vegetarian?":"FALSE",
+            "could_be_vegetarian?":"TRUE",
+            "spicy?":"TRUE",
+            "could_be_spicy?":"TRUE",
             "tags":"Pork, Noodles",
             "times_made":0}
     new_recipe = Recipe.objects.create_recipe(udon)
