@@ -25,13 +25,13 @@ class RecipeModelTests(TestCase):
     def test_get_tags_as_string(self):
         udon = make_recipes()
 
-        tags = udon.get_tags(True)
+        tags = udon.get_tags_as_string()
         expected = "Vegetarian Option, Spicy, Pork, Noodles"
         self.assertEqual(tags, expected)
 
     def test_get_tags_as_list(self):
         udon = make_recipes()
 
-        tags = udon.get_tags(False)
+        tags = udon.get_tags_as_list()
         expected = ["Vegetarian Option", "Spicy", "Pork", "Noodles"]
         self.assertEqual(tags, expected)

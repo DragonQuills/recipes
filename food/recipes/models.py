@@ -37,6 +37,7 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.food_name
+
     def convert_cook_time(self):
         if self.cook_time == 0:
             return "No cooking required"
@@ -76,7 +77,7 @@ class Recipe(models.Model):
                 all_genres += ", "
         return all_genres
 
-    def get_tags(self, as_string):
+    def get_tags_as_list(self):
         all_tags = []
         if self.vegetarian:
             all_tags.append("Vegetarian")
@@ -88,15 +89,17 @@ class Recipe(models.Model):
         elif self.could_be_spicy:
             all_tags.append("Spicy Option")
 
-        tags = json.loads(self.tags)
+        if self.tags != "":
+            tags = json.loads(self.tags)
+            all_tags += tags
 
-        all_tags += tags
-        if as_string == False:
-            return all_tags
-        else:
-            tags_string = ""
-            for counter, tag in enumerate(all_tags):
-                tags_string += tag
-                if not counter == len(all_tags)-1:
-                    tags_string += ", "
-            return tags_string
+        return all_tags
+
+    def get_tags_as_string(self):
+        all_tags = self.get_tags_as_list()
+        tags_string = ""
+        for counter, tag in enumerate(all_tags):
+            tags_string += tag
+            if not counter == len(all_tags)-1:
+                tags_string += ", "
+        return tags_string
