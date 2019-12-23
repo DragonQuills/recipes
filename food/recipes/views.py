@@ -12,7 +12,7 @@ def index(request):
 class DetailView(generic.DetailView):
     model = Recipe
     template_name = 'recipes/details.html'
-    
+
 def load_recipes(request):
     from_sheets = requests.get("https://spreadsheets.google.com/feeds/cells/1MLqtrZ9gQHGK02wAtxmMogOmrhqRsUsAE5eXT1IAzOE/od6/public/values?alt=json")
     recipes_raw = from_sheets.json()
@@ -40,9 +40,9 @@ def load_recipes(request):
             recipe_model_data[assignment[recipe_cell_data[index]["col"]]] = recipe_cell_data[index]["$t"]
         else:
             Recipe.objects.create_recipe(recipe_model_data)
-            recipe_counter++
+            recipe_counter += 1
             recipe_model_data = {}
             recipe_model_data[assignment[recipe_cell_data[index]["col"]]] = recipe_cell_data[index]["$t"]
-        index++
+        index += 1
     context = {"test": recipes}
     return render(request, 'load_recipes.html', context)
