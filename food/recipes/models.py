@@ -15,7 +15,7 @@ class Genre(models.Model):
 
 class RecipeManager(models.Manager):
     def create_recipe(self, data):
-        ## TODO: add default urls for various recipe types 
+        ## TODO: add default urls for various recipe types
         # if data.get("image_link") == None:
         #     image_url = {dessert: "dessert"
         #                  drink: "drink"
@@ -39,7 +39,7 @@ class RecipeManager(models.Manager):
                                  times_made = data.get("times_made"))
         genres = data.get("genres").split(", ")
         for genre in genres:
-            new_recipe.genres.create(name = "genre")
+            new_recipe.genres.create(name = genre)
         return new_recipe
 
 class Recipe(models.Model):
@@ -67,6 +67,8 @@ class Recipe(models.Model):
 
     times_made = models.IntegerField(default = 0)
     last_time_made = models.DateField(null = True, blank = True)
+
+    objects = RecipeManager()
 
     def __str__(self):
         return self.food_name
