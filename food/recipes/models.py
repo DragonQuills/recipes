@@ -15,6 +15,15 @@ class Genre(models.Model):
 
 class RecipeManager(models.Manager):
     def create_recipe(self, data):
+        ## TODO: add default urls for various recipe types 
+        # if data.get("image_link") == None:
+        #     image_url = {dessert: "dessert"
+        #                  drink: "drink"
+        #                  side: "side"
+        #                  entree: "entree"
+        #                  salad: "salad"
+        #                  soup: "soup"}
+        #     data["image_link"] == image_url[data.get("type")]
         new_recipe = self.create(food_name = data.get("food_name"),
                                  link = data.get("link"),
                                  image_link = data.get("image_link"),
