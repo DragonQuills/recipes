@@ -1,6 +1,5 @@
 <h1> {{recipe.food_name}} </h1>
 <h2>{{recipe.type}}</h2>
-<!-- Add Genre here once you get it-->
 <h2> {{recipe.convert_genres}} </h2>
 
 <h3>Cook Time: {{recipe.cook_time}} ({{ recipe.convert_cook_time }})</h3>
@@ -10,6 +9,12 @@
   <a href="{{recipe.link}}">Find the recipe here!</a>
 {%endif%}
 <img src="{{recipe.image_link}}" alt="A picture of {{recipe.food_name}}">
+
+<p>
+  {%if recipe.get_tags_as_string%}
+    Tags: {{recipe.get_tags_as_string}}
+  {%endif%}
+</p>
 
 <p>
   {%if recipe.times_made == 0%}
