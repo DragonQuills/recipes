@@ -1,5 +1,9 @@
-from django.db import models
+import datetime
 import json
+
+from django.db import models
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -103,3 +107,8 @@ class Recipe(models.Model):
             if not counter == len(all_tags)-1:
                 tags_string += ", "
         return tags_string
+
+    def update_times_made(self):
+        self.times_made += 1
+        self.last_time_made = timezone.now().date()
+        self.save()

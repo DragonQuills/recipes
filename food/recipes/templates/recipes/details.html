@@ -25,5 +25,17 @@
   {%endif%}
 </p>
 
-<!-- Add functionality for incrementing the times_made and the most recent date-->
-<button type="button" name="made_it">I made this!</button>
+<!-- Add functionality for incrementing the times_made and the most recent date
+currently broken, fix later!
+
+<button type="button" name="made_it" id="made_this">I made this!</button>
+
+<script type="text/javascript">
+  var button = document.getElementById("made_this");
+  button.addEventListener("click", ()=>{
+    button.disabled = true;
+    button.innerHTML = "Delicious!";
+    {{recipe.update_times_made}};
+  } )
+</script>
+-->
