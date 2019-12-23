@@ -43,34 +43,27 @@ class Recipe(models.Model):
         return self.food_name
 
     def convert_cook_time(self):
-        if self.cook_time == 0:
-            return "No cooking required"
-        elif self.cook_time == 1:
-            return "1 to 15 minutes"
-        elif self.cook_time == 2:
-            return "15 to 30 minutes"
-        elif self.cook_time == 3:
-            return "30 to 45 minutes"
-        elif self.cook_time == 4:
-            return "45 to 75 minutes"
-        elif self.cook_time == 5:
-            return "1 to 2 hours"
-        else:
-            return "Slow-cooker recipe, anywhere from 2 to 12 hours"
+        cook_time_conversion = {
+            0: "No cooking required",
+            1: "1 to 15 minutes",
+            2: "15 to 30 minutes",
+            3: "30 to 45 minutes",
+            4: "45 to 75 minutes",
+            5: "1 to 2 hours",
+            6: "Slow-cooker recipe, anywhere from 2 to 12 hours"
+        }
+        return cook_time_conversion[self.cook_time]
 
     def convert_prep_time(self):
-        if self.prep_time == 1:
-            return "1 to 5 minutes"
-        elif self.prep_time == 2:
-            return "5 to 15 minutes"
-        elif self.prep_time == 3:
-            return "15 to 30 minutes"
-        elif self.prep_time == 4:
-            return "30 to 45 minutes"
-        elif self.prep_time == 5:
-            return "45 to 75 minutes"
-        else:
-            return "Requires advanced preparation, like marinating for several hours or soaking overnight."
+        prep_time_conversion = {
+            1: "1 to 5 minutes",
+            2: "5 to 15 minutes",
+            3: "15 to 30 minutes",
+            4: "30 to 45 minutes",
+            5: "45 to 75 minutes",
+            6: "Requires advanced preparation, like marinating for several hours or soaking overnight."
+        }
+        return prep_time_conversion[self.prep_time]
 
     def convert_genres(self):
         all_genres = ""
