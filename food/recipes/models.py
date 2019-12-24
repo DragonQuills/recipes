@@ -13,6 +13,40 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class RecipeManager(models.Manager):
+    def create_recipe(self, data):
+        ## TODO: add default urls for various recipe types
+        # if data.get("image_link") == None:
+        #     image_url = {dessert: "dessert"
+        #                  drink: "drink"
+        #                  side: "side"
+        #                  entree: "entree"
+        #                  salad: "salad"
+        #                  soup: "soup"}
+        #     data["image_link"] == image_url[data.get("type")]
+        new_recipe, created = self.get_or_create(
+            name = data.get("name"),
+            link = data.get("link",""),
+            image_link = data.get("image_link",""),
+            type = data.get("type"),
+            cook_time = int(data.get("cook_time",0)),
+            prep_time = int(data.get("prep_time",0)),
+            freezes_well = data.get("freezes_well") == "TRUE",
+            vegetarian = data.get("vegetarian") == "TRUE",
+            could_be_vegetarian = data.get("could_be_vegetarian?") == "TRUE",
+            spicy = data.get("spicy?") == "TRUE",
+            could_be_spicy = data.get("could_be_spicy?") == "TRUE",
+            tags = json.dumps(data.get("tags","").split(", ")),
+            times_made = int(data.get("times_made",0)),
+            last_time_made = data.get("last_time_made",None)
+        )
+
+        if created:
+            genres = data.get("genres","").split(", ")
+            for genre in genres:
+                new_recipe.genres.get_or_create(name = genre)
+        return new_recipe
+
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
     link = models.URLField(max_length=2083, blank = True)
@@ -36,6 +70,8 @@ class Recipe(models.Model):
 
     times_made = models.IntegerField(default = 0)
     last_time_made = models.DateField(null = True, blank = True)
+
+    objects = RecipeManager()
 
     def __str__(self):
         return self.food_name

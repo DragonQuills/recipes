@@ -1,0 +1,10 @@
+{% if new_recipes %}
+<h1>Recipes Loaded!</h1>
+    <ul>
+    {% for recipe in new_recipes %}
+        <li><a href="/recipes/{{ recipe.id }}/">{{ recipe.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+  <h1>Recipe Load Failure!</h1>
+{% endif %}
