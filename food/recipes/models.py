@@ -24,24 +24,27 @@ class RecipeManager(models.Manager):
         #                  salad: "salad"
         #                  soup: "soup"}
         #     data["image_link"] == image_url[data.get("type")]
-        new_recipe, created = self.get_or_create(food_name = data.get("name",""),
-                                 link = data.get("link",""),
-                                 image_link = data.get("image_link",""),
-                                 type = data.get("type",""),
-                                 cook_time = int(data.get("cook_time",0)),
-                                 prep_time = int(data.get("prep_time",0)),
-                                 freezes_well = data.get("freezes_well",False) == "TRUE",
-                                 vegetarian = data.get("vegetarian",False) == "TRUE",
-                                 could_be_vegetarian = data.get("could_be_vegetarian?",False) == "TRUE",
-                                 spicy = data.get("spicy?",False) == "TRUE",
-                                 could_be_spicy = data.get("could_be_spicy?",False) == "TRUE",
-                                 tags = json.dumps(data.get("tags","").split(", ")),
-                                 times_made = int(data.get("times_made",0)),
-                                 last_time_made = data.get("last_time_made",None))
-        if created == True:
+        new_recipe, created = self.get_or_create(
+            name = data.get("name"),
+            link = data.get("link"),
+            image_link = data.get("image_link"),
+            type = data.get("type"),
+            cook_time = int(data.get("cook_time",0)),
+            prep_time = int(data.get("prep_time",0)),
+            freezes_well = data.get("freezes_well") == "TRUE",
+            vegetarian = data.get("vegetarian") == "TRUE",
+            could_be_vegetarian = data.get("could_be_vegetarian?") == "TRUE",
+            spicy = data.get("spicy?") == "TRUE",
+            could_be_spicy = data.get("could_be_spicy?") == "TRUE",
+            tags = json.dumps(data.get("tags","").split(", ")),
+            times_made = int(data.get("times_made",0)),
+            last_time_made = data.get("last_time_made",None)
+        )
+
+        if created:
             genres = data.get("genres","").split(", ")
             for genre in genres:
-                new_recipe.genres.create(name = genre)
+                new_recipe.genres.get_or_create(name = genre)
         return new_recipe
 
 class Recipe(models.Model):
