@@ -45,12 +45,10 @@ class RecipeManager(models.Manager):
         return new_recipe
 
 class Recipe(models.Model):
-    food_name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     link = models.URLField(max_length=2083, blank = True)
     image_link = models.URLField(max_length=2083, blank = True)
 
-    # genres will be a list, it will need
-    # to be decoded using json
     genres = models.ManyToManyField(Genre)
     type = models.CharField(max_length = 200)
 
