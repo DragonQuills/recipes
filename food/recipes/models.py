@@ -26,8 +26,8 @@ class RecipeManager(models.Manager):
         #     data["image_link"] == image_url[data.get("type")]
         new_recipe, created = self.get_or_create(
             name = data.get("name"),
-            link = data.get("link"),
-            image_link = data.get("image_link"),
+            link = data.get("link",""),
+            image_link = data.get("image_link",""),
             type = data.get("type"),
             cook_time = int(data.get("cook_time",0)),
             prep_time = int(data.get("prep_time",0)),
