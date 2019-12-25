@@ -7,5 +7,6 @@ urlpatterns = [
     #home page at recipes/
     path('', views.IndexView.as_view(), name='index'),
     path('load_recipes', views.load_recipes, name='load_recipes'),
-    path('<int:pk>/', views.DetailView.as_view(), name='detail')
+    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+    path('search/', views.SearchView.as_view(), name='search'),
 ]

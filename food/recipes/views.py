@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 
-from .models import Recipe
+from .models import Recipe, Genre
 
 # def index(request):
 #     return HttpResponse("You're at the recipes index page.")
@@ -17,6 +17,11 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Recipe
     template_name = 'recipes/details.html'
+
+class SearchView(generic.ListView):
+    model = Genre
+    context_object_name = 'genres_list'
+    template_name = 'recipes/search.html'
 
 def load_recipes(request):
     # call published google sheets to gather data
