@@ -13,80 +13,63 @@
     <title>K+A Recipes</title>
   </head>
   <body>
-    <h1>Recipes</h1>
+  <div class="container-fluid">
+    <div class="row">
+      <h1>Recipes</h1>
+    </div>
 
     {%for recipe in recipes_list%}
-    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-      <div class="mainflip">
-        <a href="{% url 'recipes:detail' recipe.id %}">
-        <div class="frontside">
-          <div class="card">
-            <div class="card-image-container">
-              <img class="card-img-top img- fluid card-image" src="{{recipe.image_link}}" alt="A picture of {{recipe.name}}">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">{{recipe.name}}</h5>
-              <h6 class="card-text">{{recipe.convert_genres}}</h6>
-            </div>
-          </div>
-        </div>
-        <div class="backside">
-          <div class="card">
-            <div class="card-header">
-              {{recipe.name}}
-            </div>
-            <div class="card-body">
-              <p class="card-text">Cook Time: {{recipe.convert_cook_time}}</p>
-              <p class="card-text">Prep Time: {{recipe.convert_prep_time}}</p>
-              <p class="card-text">
-              {%if recipe.times_made == 0%}
-                This recipe hasn't been made yet! Why not give it a try?
-              {%else%}
-                This recipe has been made {{recipe.times_made}} time{{ recipe.times_made|pluralize }}. <br>
-                It was last made {{recipe.last_time_made}}
-              {%endif%}
-              </p>
-              <br>
-              <a href="{{recipe.link}}">Direct Link</a>
-            </div>
-            <div class="card-footer">
-              {{recipe.get_tags_as_string}}
+    {% if forloop.counter0|divisibleby:3 %}
+      <div class="row">
+    {% endif %}
+    <div class="col-sm">
+      <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+        <div class="mainflip">
+          <a href="{% url 'recipes:detail' recipe.id %}">
+          <div class="frontside">
+            <div class="card">
+              <div class="card-image-container">
+                <img class="card-img-top img- fluid card-image" src="{{recipe.image_link}}" alt="A picture of {{recipe.name}}">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{recipe.name}}</h5>
+                <h6 class="card-text">{{recipe.convert_genres}}</h6>
+              </div>
             </div>
           </div>
+          <div class="backside">
+            <div class="card">
+              <div class="card-header">
+                {{recipe.name}}
+              </div>
+              <div class="card-body">
+                <p class="card-text">Cook Time: {{recipe.convert_cook_time}}</p>
+                <p class="card-text">Prep Time: {{recipe.convert_prep_time}}</p>
+                <p class="card-text">
+                {%if recipe.times_made == 0%}
+                  This recipe hasn't been made yet! Why not give it a try?
+                {%else%}
+                  This recipe has been made {{recipe.times_made}} time{{ recipe.times_made|pluralize }}. <br>
+                  It was last made {{recipe.last_time_made}}
+                {%endif%}
+                </p>
+                <br>
+                <a href="{{recipe.link}}">Direct Link</a>
+              </div>
+              <div class="card-footer">
+                {{recipe.get_tags_as_string}}
+              </div>
+            </div>
+          </div>
+          </a>
         </div>
-        </a>
       </div>
     </div>
+    {% if forloop.counter|divisibleby:3 %}
+      </div>
+    {% endif %}
     {%endfor%}
-
-    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-      <div class="mainflip">
-        <div class="frontside">
-          <div class="card" style="width:20rem;">
-            <img class="card-img-top img- fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="card image">
-            <div class="card-body">
-              <h4 class="card-title">Card Title</h4>
-              <p class="card-text">This is basic card with image on top, title, description and button.</p>
-            </div>
-          </div>
-        </div>
-        <div class="backside">
-          <div class="card" style="width:20rem;">
-            <div class="card-header">
-              This is a Header
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Card Title</h4>
-              <p class="card-text">This is a card component with header and footer.</p>
-              <a href="#" class="btn btn-info btn-md">Info Button</a>
-            </div>
-            <div class="card-footer">
-              This is a Footer
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
