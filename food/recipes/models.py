@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 
 from django.db import models
 from django.utils import timezone
@@ -16,7 +17,7 @@ class Genre(models.Model):
 class RecipeManager(models.Manager):
     def create_recipe(self, data):
         # TODO: add default urls for various recipe types
-        if data.get("image_link") == "":
+        if data.get("image_link") == None:
             image_url = {
                             "Dessert": "/recipes/dessert.png",
                             "Drink": "/recipes/drink.png",
@@ -148,3 +149,8 @@ class Recipe(models.Model):
         self.times_made += 1
         self.last_time_made = timezone.now().date()
         self.save()
+
+    def is_static(self):
+        if re.search('^/recipes/', self.image_link) == None:
+            return False
+        return True

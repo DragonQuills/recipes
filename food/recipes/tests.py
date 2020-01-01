@@ -9,7 +9,7 @@ from .models import Recipe, Genre
 def make_recipes():
     udon = {"name":"Pork Udon",
             "link":"https://www.bonappetit.com/recipe/stir-fried-udon-with-pork",
-            "image_link":"",
+            "image_link": "https://assets.bonappetit.com/photos/58c2c2bcb1bf59134d606c65/16:9/w_2560,c_limit/0317-ba-basics-stir-fried-udon-15.jpg",
             "genres": "Asian, Chinese",
             "type":"Entree",
             "cook_time":2,
@@ -23,8 +23,7 @@ def make_recipes():
             "times_made":0}
 
     salmon = {"name":"Tuscan Butter Salmon",
-            "link":"https://www.bonappetit.com/recipe/stir-fried-udon-with-pork",
-            "image_link":"",
+            "link":"https://www.delish.com/cooking/recipe-ideas/recipes/a58412/tuscan-butter-salmon-recipe/",
             "genres": "Italian",
             "type":"Entree",
             "cook_time":3,
@@ -39,7 +38,6 @@ def make_recipes():
 
     b_squash_soup  = {"name":"Butternut Squash Soup",
             "link":"",
-            "image_link":"",
             "genres": "Basic",
             "type":"Soup",
             "cook_time":3,
@@ -84,9 +82,13 @@ class RecipeModelTests(TestCase):
         self.assertEqual(udon.times_made, 1)
         self.assertEqual(udon.last_time_made, timezone.now().date())
 
-class RecipeManagerTests(TestCase):
     def test_replaces_image_link(self):
         udon, salmon, squash_soup = make_recipes()
-        self.assertEqual(udon.image_link, "/recipes/static/entree_meat.png")
-        self.assertEqual(salmon.image_link, "/recipes/static/entree_fish.png")
-        self.assertEqual(squash_soup.image_link, "/recipes/static/soup.png")
+        self.assertEqual(udon.image_link, "https://assets.bonappetit.com/photos/58c2c2bcb1bf59134d606c65/16:9/w_2560,c_limit/0317-ba-basics-stir-fried-udon-15.jpg")
+        self.assertEqual(salmon.image_link, "/recipes/entree_fish.png")
+        self.assertEqual(squash_soup.image_link, "/recipes/soup.png")
+
+    def test_is_staic(self):
+        udon, salmon, squash_soup = make_recipes()
+        self.assertEqual(udon.is_static(), False)
+        self.assertEqual(salmon.is_static(), True)
