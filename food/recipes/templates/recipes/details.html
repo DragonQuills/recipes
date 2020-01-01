@@ -1,3 +1,4 @@
+{% load static%}
 <h1> {{recipe.name}} </h1>
 <h2>{{recipe.type}}</h2>
 <h2> {{recipe.convert_genres}} </h2>
@@ -8,7 +9,12 @@
 {%if recipe.link%}
   <a href="{{recipe.link}}">Find the recipe here!</a>
 {%endif%}
-<img src="{{recipe.image_link}}" alt="A picture of {{recipe.name}}">
+
+{%if recipe.is_static%}
+  <img src="{% static recipe.image_link %}" alt="A default image of a {{recipe.type}}">
+{%else%}
+  <img src="{{recipe.image_link}}" alt="A picture of {{recipe.name}}">
+{%endif%}
 
 <p>
   {%if recipe.get_tags_as_string%}
