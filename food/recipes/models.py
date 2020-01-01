@@ -16,7 +16,7 @@ class Genre(models.Model):
 
 class RecipeManager(models.Manager):
     def create_recipe(self, data):
-        # TODO: add default urls for various recipe types
+        
         if data.get("image_link") == None:
             image_url = {
                             "Dessert": "/recipes/dessert.png",
