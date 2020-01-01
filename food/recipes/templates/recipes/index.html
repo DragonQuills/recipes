@@ -16,7 +16,7 @@
     {%for recipe in recipes_list%}
     <a href="{% url 'recipes:detail' recipe.id %}">
       <div class="card" style="width: 18rem;">
-        <img src="{{recipe.image_link}}" class="card-img-top" alt="A picture of {{recipe.food_name}}">
+        <img src="{{recipe.image_link}}" class="card-img-top" alt="A picture of {{recipe.name}}">
         <div class="card-body">
           <h5 class="card-title">{{recipe.name}}</h5>
           <h6 class="card-text">{{recipe.convert_genres}}</h6>

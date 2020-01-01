@@ -83,7 +83,7 @@ class Recipe(models.Model):
     objects = RecipeManager()
 
     def __str__(self):
-        return self.food_name
+        return self.name
 
     def convert_cook_time(self):
         cook_time_conversion = {
