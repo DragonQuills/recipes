@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 
 from django.db import models
 from django.utils import timezone
@@ -15,15 +16,24 @@ class Genre(models.Model):
 
 class RecipeManager(models.Manager):
     def create_recipe(self, data):
-        ## TODO: add default urls for various recipe types
-        # if data.get("image_link") == None:
-        #     image_url = {dessert: "dessert"
-        #                  drink: "drink"
-        #                  side: "side"
-        #                  entree: "entree"
-        #                  salad: "salad"
-        #                  soup: "soup"}
-        #     data["image_link"] == image_url[data.get("type")]
+        
+        if data.get("image_link") == None:
+            image_url = {
+                            "Dessert": "/recipes/dessert.png",
+                            "Drink": "/recipes/drink.png",
+                            "Side": "/recipes/entree_vegetarian.png",
+                            "Salad": "/recipes/salad.png",
+                            "Soup": "/recipes/soup.png",
+                         }
+            if data.get("type") == "Entree":
+                if data.get("vegetarian") == 'TRUE':
+                    image_url["Entree"] = "/recipes/entree_vegetarian.png"
+                elif "Fish" in data.get("tags").split(", "):
+                    image_url["Entree"] = "/recipes/entree_fish.png"
+                else:
+                    image_url["Entree"] = "/recipes/entree_meat.png"
+            data["image_link"] = image_url[data.get("type")]
+
         new_recipe, created = self.get_or_create(
             name = data.get("name"),
             link = data.get("link",""),
@@ -74,7 +84,7 @@ class Recipe(models.Model):
     objects = RecipeManager()
 
     def __str__(self):
-        return self.food_name
+        return self.name
 
     def convert_cook_time(self):
         cook_time_conversion = {
@@ -139,3 +149,8 @@ class Recipe(models.Model):
         self.times_made += 1
         self.last_time_made = timezone.now().date()
         self.save()
+
+    def is_static(self):
+        if re.search('^/recipes/', self.image_link) == None:
+            return False
+        return True
