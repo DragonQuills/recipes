@@ -1,6 +1,6 @@
 <h1>Search</h1>
 
-<form method="post">
+<form method="get">
   {% csrf_token %}
   Type: <br>
   <input type="checkbox" name = "types[]" value="all"> Select all<br>
@@ -31,19 +31,19 @@
 
   Vegetarian:
   <select>
-    <option value="shrug">¯\_(ツ)_/¯</option>
-    <option value="yes">Yes</option>
-    <option value="options">Vegetarian/Vegetarian Substitutions</option>
-    <option value="no">Meat only</option>
+    <option name="vegetarian" value="shrug">¯\_(ツ)_/¯</option>
+    <option name="vegetarian" value="yes">Yes</option>
+    <option name="vegetarian" value="options">Vegetarian/Vegetarian Substitutions</option>
+    <option name="vegetarian" value="no">Meat only</option>
   </select>
   <br> <br>
 
   Spicy:
   <select>
-    <option value="shrug">¯\_(ツ)_/¯</option>
-    <option value="yes">Yes</option>
-    <option value="options">Spicy option</option>
-    <option value="no">No</option>
+    <option name="spicy" value="shrug">¯\_(ツ)_/¯</option>
+    <option name="spicy" value="yes">Yes</option>
+    <option name="spicy" value="options">Spicy option</option>
+    <option name="spicy" value="no">No</option>
   </select>
   <br> <br>
 
