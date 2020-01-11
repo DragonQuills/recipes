@@ -30,9 +30,9 @@
             <div class="card">
               <div class="card-image-container">
                 {%if recipe.is_static%}
-                  <img class="card-img-top img- fluid card-image" src="{% static recipe.image_link %}" alt="A default image of a {{recipe.type}}">
+                  <img class="card-img-top card-image" src="{% static recipe.image_link %}" alt="A default image of a {{recipe.type}}">
                 {%else%}
-                  <img class="card-img-top img- fluid card-image" src="{{recipe.image_link}}" alt="A picture of {{recipe.name}}">
+                  <img class="card-img-top card-image" src="{{recipe.image_link}}" alt="A picture of {{recipe.name}}">
                 {%endif%}
               </div>
               <div class="card-body">
