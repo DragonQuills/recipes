@@ -22,6 +22,18 @@ class SearchView(generic.ListView):
     model = Genre
     context_object_name = 'genres_list'
     template_name = 'recipes/search.html'
+    #TODO: search view assembles query params and then redirects
+
+class ResultsView(generic.ListView):
+    #request.GET.get('q', '')
+    template_name = 'recipes/results.html'
+    context_object_name = 'recipes_list'
+
+    def get_queryset(self):
+         """ filter results by query params given by search """
+         return Recipe.objects.filter(
+                vegetarian=self.request.GET.get('vegetarian', True)
+         )
 
 def load_recipes(request):
     # call published google sheets to gather data
