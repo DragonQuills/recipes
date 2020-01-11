@@ -54,7 +54,8 @@ class RecipeManager(models.Manager):
         if created:
             genres = data.get("genres","").split(", ")
             for genre in genres:
-                new_recipe.genres.get_or_create(name = genre)
+                recipe_genre, created = Genre.objects.get_or_create(name = genre)
+                new_recipe.genres.add(recipe_genre)
         return new_recipe
 
 class Recipe(models.Model):
