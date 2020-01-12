@@ -1,24 +1,47 @@
 {% extends 'navbar.html' %}
 
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // code pulled from https://stackoverflow.com/questions/45517884/drop-down-menu-option-selected-based-on-url-paramater
+    // Construct URL object using current browser URL
+    var url = new URL(document.location);
+
+    // Get query parameters object
+    var params = url.searchParams;
+
+    // Get values of veg and spicy
+    var veg = params.get("vegetarian");
+    var spicy = params.get("spicy");
+
+    // Set default value to be shrug
+    $("#vegetarian").val(shrug);
+    $("#spicy").val(shrug);
+
+    // Set query params based on value
+    $("#vegetarian").val(veg);
+    $("#spicy").val(spicy);
+  });
+</script>
+
 <h1>Search</h1>
 
-<form method="get">
-  {% csrf_token %}
+<form method="get" action={% url 'recipes:results'%}>
   Type: <br>
-  <input type="checkbox" name = "types[]" value="all"> Select all<br>
-  <input type="checkbox" name = "types[]" value="entree"> Entree <br>
-  <input type="checkbox" name = "types[]" value="side"> Side <br>
-  <input type="checkbox" name = "types[]" value="salad"> Salad <br>
-  <input type="checkbox" name = "types[]" value="soup"> Soup <br>
-  <input type="checkbox" name = "types[]" value="dessert"> Dessert <br>
-  <input type="checkbox" name = "types[]" value="drink"> Drink <br>
+  <input type="checkbox"> Select all<br>
+  <input type="checkbox" name = "types" value="Entree"> Entree <br>
+  <input type="checkbox" name = "types" value="Side"> Side <br>
+  <input type="checkbox" name = "types" value="Salad"> Salad <br>
+  <input type="checkbox" name = "types" value="Soup"> Soup <br>
+  <input type="checkbox" name = "types" value="Dessert"> Dessert <br>
+  <input type="checkbox" name = "types" value="Drink"> Drink <br>
   <br>
 
   Genre: <br>
-  <input type="checkbox" name = "genres[]" value="all"> Select all<br>
+  <input type="checkbox"> Select all<br>
   {%for genre in genres_list%}
-    <input type="checkbox" name = "genres[]" value="genre.name"> {{genre.name}}<br>
+    <input type="checkbox" name = "genres" value="{{genre.name}}"> {{genre.name}}<br>
   {%endfor%}
   <br>
 
@@ -33,25 +56,25 @@
   <br> <br>
 
   Vegetarian:
-  <select>
-    <option name="vegetarian" value="shrug">¯\_(ツ)_/¯</option>
-    <option name="vegetarian" value="yes">Yes</option>
-    <option name="vegetarian" value="options">Vegetarian/Vegetarian Substitutions</option>
-    <option name="vegetarian" value="no">Meat only</option>
+  <select name="vegetarian" id='vegetarian'>
+    <option value="shrug">¯\_(ツ)_/¯</option>
+    <option value="yes">Yes</option>
+    <option value="options">Vegetarian/Vegetarian Substitutions</option>
+    <option value="no">Meat only</option>
   </select>
   <br> <br>
 
   Spicy:
-  <select>
-    <option name="spicy" value="shrug">¯\_(ツ)_/¯</option>
-    <option name="spicy" value="yes">Yes</option>
-    <option name="spicy" value="options">Spicy option</option>
-    <option name="spicy" value="no">No</option>
+  <select name="spicy" id=spicy>
+    <option value="shrug">¯\_(ツ)_/¯</option>
+    <option value="yes">Yes</option>
+    <option value="options">Spicy option</option>
+    <option value="no">No</option>
   </select>
   <br> <br>
 
-  Freezes well:
-  <input type="checkbox" name="freeze" value = "yes"> Yes
+  Freezes well?
+  <input type="checkbox" name="freeze" value = "True">
   <br>
 
   <br>
