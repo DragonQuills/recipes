@@ -6,3 +6,4 @@ on search page, do "Spicyness optional" instead of spicy option
 Maybe serving size?
 Make index cards expand so they look more clickable
 Search page fix genres
+Change tag of "vegetarian option" to "vegetarian substitution"
