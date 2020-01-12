@@ -1,4 +1,6 @@
+{% extends 'navbar.html' %}
 {% load static%}
+{% block content %}
 <h1> {{recipe.name}} </h1>
 <h2>{{recipe.type}}</h2>
 <h2> {{recipe.convert_genres}} </h2>
@@ -30,7 +32,7 @@
     It was last made {{recipe.last_time_made}}
   {%endif%}
 </p>
-
+{% endblock %}
 <!-- Add functionality for incrementing the times_made and the most recent date
 currently broken, fix later!
 
