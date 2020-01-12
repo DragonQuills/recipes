@@ -3,11 +3,9 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from django.db.models import Q
 
-from .models import Recipe
-
-# def index(request):
-#     return HttpResponse("You're at the recipes index page.")
+from .models import Recipe, Genre
 
 class IndexView(generic.ListView):
     model = Recipe
@@ -17,6 +15,57 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Recipe
     template_name = 'recipes/details.html'
+
+class SearchView(generic.ListView):
+    model = Genre
+    context_object_name = 'genres_list'
+    template_name = 'recipes/search.html'
+
+class ResultsView(generic.ListView):
+    template_name = 'recipes/index.html'
+    context_object_name = 'recipes_list'
+
+    def get_queryset(self):
+        """ filter results by query params given by search """
+        filtered = Recipe.objects.filter(
+            cook_time__gte=self.request.GET.get('cook_time_min', 0),
+            cook_time__lte=self.request.GET.get('cook_time_max', 6),
+            prep_time__gte=self.request.GET.get('prep_time_min', 0),
+            prep_time__lte=self.request.GET.get('prep_time_max', 6)
+        )
+
+        if self.request.GET.getlist('types'):
+            filtered = filtered.filter(
+                type__in=self.request.GET.getlist('types')
+            )
+        if self.request.GET.getlist('genres'):
+            filtered = filtered.filter(
+                genres__name__in=self.request.GET.getlist('genres')
+            )
+        if self.request.GET.get('freeze'):
+            filtered = filtered.filter(freezes_well=True)
+
+        if self.request.GET.get('vegetarian'):
+            veg = self.request.GET.get('vegetarian')
+
+            if veg == "yes":
+                filtered = filtered.filter(vegetarian=True)
+            elif veg == "options":
+                filtered = filtered.filter(Q(vegetarian=True) | Q(could_be_vegetarian=True))
+            elif veg == "no":
+                filtered = filtered.filter(vegetarian=False)
+
+        if self.request.GET.get('spicy'):
+            spicy = self.request.GET.get('spicy')
+
+            if spicy == "yes":
+                filtered = filtered.filter(spicy=True)
+            elif spicy == "options":
+                filtered = filtered.filter(Q(spicy=False) & Q(could_be_spicy=True))
+            elif spicy == "no":
+                filtered = filtered.filter(spicy=False)
+
+        return filtered
 
 def load_recipes(request):
     if request.method == "GET":

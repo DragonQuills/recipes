@@ -1,0 +1,9 @@
+On search page - make it clear what 0-6 mean
+On index page, fix hyperlinks so recipe card as a whole can be clicked
+On index and results page, remove commas after "vegetarian" and "spicy"
+on Index page, make it clear what direct link means maybe "Offsite link to recipe"
+on search page, do "Spicyness optional" instead of spicy option
+Maybe serving size?
+Make index cards expand so they look more clickable
+Search page fix genres
+Change tag of "vegetarian option" to "vegetarian substitution"

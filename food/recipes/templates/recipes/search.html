@@ -1,0 +1,80 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // code pulled from https://stackoverflow.com/questions/45517884/drop-down-menu-option-selected-based-on-url-paramater
+    // Construct URL object using current browser URL
+    var url = new URL(document.location);
+
+    // Get query parameters object
+    var params = url.searchParams;
+
+    // Get values of veg and spicy
+    var veg = params.get("vegetarian");
+    var spicy = params.get("spicy");
+
+    // Set default value to be shrug
+    $("#vegetarian").val(shrug);
+    $("#spicy").val(shrug);
+
+    // Set query params based on value
+    $("#vegetarian").val(veg);
+    $("#spicy").val(spicy);
+  });
+</script>
+
+<h1>Search</h1>
+
+<form method="get" action={% url 'recipes:results'%}>
+  Type: <br>
+  <input type="checkbox"> Select all<br>
+  <input type="checkbox" name = "types" value="Entree"> Entree <br>
+  <input type="checkbox" name = "types" value="Side"> Side <br>
+  <input type="checkbox" name = "types" value="Salad"> Salad <br>
+  <input type="checkbox" name = "types" value="Soup"> Soup <br>
+  <input type="checkbox" name = "types" value="Dessert"> Dessert <br>
+  <input type="checkbox" name = "types" value="Drink"> Drink <br>
+  <br>
+
+  Genre: <br>
+  <input type="checkbox"> Select all<br>
+  {%for genre in genres_list%}
+    <input type="checkbox" name = "genres" value="{{genre.name}}"> {{genre.name}}<br>
+  {%endfor%}
+  <br>
+
+  Cook Time: <br>
+  Min: <input type="number" name="cook_time_min" min = "0" max = "6" value = "0">
+  Max: <input type="number" name="cook_time_max" min = "0" max = "6" value = "6">
+  <br> <br>
+
+  Prep Time: <br>
+  Min: <input type="number" name="prep_time_min" min = "0" max = "6" value = "0">
+  Max: <input type="number" name="prep_time_max" min = "0" max = "6" value = "6">
+  <br> <br>
+
+  Vegetarian:
+  <select name="vegetarian" id='vegetarian'>
+    <option value="shrug">¯\_(ツ)_/¯</option>
+    <option value="yes">Yes</option>
+    <option value="options">Vegetarian/Vegetarian Substitutions</option>
+    <option value="no">Meat only</option>
+  </select>
+  <br> <br>
+
+  Spicy:
+  <select name="spicy" id=spicy>
+    <option value="shrug">¯\_(ツ)_/¯</option>
+    <option value="yes">Yes</option>
+    <option value="options">Spicy option</option>
+    <option value="no">No</option>
+  </select>
+  <br> <br>
+
+  Freezes well?
+  <input type="checkbox" name="freeze" value = "True">
+  <br>
+
+  <br>
+  <input type="submit" value="Search">
+  <input type="reset">
+</form>
