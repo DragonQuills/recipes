@@ -12,14 +12,11 @@ python:
 # install:
 #   - pip install -r requirements.txt
 # command to run tests
-services:      
+services:
   - sqlite
 
 env:
   -DJANGO=1.8 DB=sqlite
 
-before_script:
-  - cd food
-
 script:
-  - python manage.py test
+  - python food/manage.py test food/
